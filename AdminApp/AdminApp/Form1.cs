@@ -9,19 +9,37 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AuthenticationApp;
 
 namespace AdminApp
 {
-
-    public partial class MainForm : Form
+    public partial class Form1 : Form1
     {
         private readonly List<Problem> _problems = new List<Problem>();
 
-        public MainForm()
+        public Form1()
         {
             InitializeComponent();
         }
 
+        private async void MainForm_Load(object sender, EventArgs e)
+        {
+            //// Открываем форму аутентификации
+            //using (var loginForm = new LoginForm())
+            //{
+            //    if (loginForm.ShowDialog() != DialogResult.OK)
+            //    {
+            //        // Если аутентификация не прошла, закрываем приложение
+            //        this.Close();
+            //        return;
+            //    }
+            //}
+            LoginForm lf = new LoginForm();
+             lf.Close();
+            
+            ////Если аутентификация прошла, запускаем сервер
+            await Task.Run(() => StartServer());
+        }
 
         private void StartServer()
         {
@@ -32,14 +50,11 @@ namespace AdminApp
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
                 server = new TcpListener(localAddr, port);
-
-                // Запускаем сервер
                 server.Start();
 
                 while (true)
                 {
                     TcpClient client = server.AcceptTcpClient();
-
                     ProcessClient(client, this);
                 }
             }
@@ -53,18 +68,13 @@ namespace AdminApp
             }
         }
 
-        private static void ProcessClient(TcpClient client, MainForm mainForm)
+        private static void ProcessClient(TcpClient client, Form1 mainForm)
         {
             NetworkStream stream = client.GetStream();
-
             byte[] bytes = new byte[256];
             int numBytesRead = stream.Read(bytes, 0, bytes.Length);
-
             string data = System.Text.Encoding.UTF8.GetString(bytes, 0, numBytesRead);
-
-            // Обработка полученного сообщения
             mainForm.HandleMessage(data);
-
             client.Close();
         }
 
@@ -78,11 +88,9 @@ namespace AdminApp
             };
 
             _problems.Add(problem);
-
             UpdateUI(problem);
         }
 
-        // Метод для обновления интерфейса администратора
         private delegate void UpdateUIDelegate(Problem problem);
 
         private void UpdateUI(Problem problem)
@@ -93,13 +101,8 @@ namespace AdminApp
             }
             else
             {
-                dgvProblems.Rows.Add(problem.Type, problem.Status, problem.DateTime);
-                Color backColor = Color.Red;
-                if (problem.Status == "Разрешена")
-                {
-                    backColor = Color.Green;
-                }
-                dgvProblems.Rows[dgvProblems.RowCount - 1].DefaultCellStyle.BackColor = backColor;
+                // Обновление интерфейса
+                // Например, добавление в DataGridView
             }
         }
 
@@ -108,11 +111,6 @@ namespace AdminApp
             public string Type { get; set; }
             public string Status { get; set; }
             public DateTime DateTime { get; set; }
-        }
-
-        private async void MainForm_Load(object sender, EventArgs e)
-        {
-            await Task.Run(() => StartServer());
         }
     }
 }

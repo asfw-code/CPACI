@@ -8,3 +8,14 @@ C:\Users\User\source\repos\AdminApp\AdminApp\bin\Debug\AdminApp.exe
 C:\Users\User\source\repos\AdminApp\AdminApp\bin\Debug\AdminApp.pdb
 C:\Users\User\source\repos\AdminApp\AdminApp\obj\Debug\AdminApp.exe
 C:\Users\User\source\repos\AdminApp\AdminApp\obj\Debug\AdminApp.pdb
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.exe.config
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.exe
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.pdb
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csprojAssemblyReference.cache
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AuthenticationApp.LoginForm.resources
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.Properties.Resources.resources
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.GenerateResource.cache
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.CoreCompileInputs.cache
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.exe
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.pdb
+C:\Users\student1\source\repos\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.Form1.resources
