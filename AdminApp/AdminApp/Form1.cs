@@ -8,38 +8,28 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using AuthenticationApp;
 
 namespace AdminApp
 {
-    public partial class Form1 : Form1
+
+    public partial class MainForm : Form
     {
         private readonly List<Problem> _problems = new List<Problem>();
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+
+
+
+
+
+
+            
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
-        {
-            //// Открываем форму аутентификации
-            //using (var loginForm = new LoginForm())
-            //{
-            //    if (loginForm.ShowDialog() != DialogResult.OK)
-            //    {
-            //        // Если аутентификация не прошла, закрываем приложение
-            //        this.Close();
-            //        return;
-            //    }
-            //}
-            LoginForm lf = new LoginForm();
-             lf.Close();
-            
-            ////Если аутентификация прошла, запускаем сервер
-            await Task.Run(() => StartServer());
-        }
 
         private void StartServer()
         {
@@ -50,11 +40,14 @@ namespace AdminApp
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
                 server = new TcpListener(localAddr, port);
+
+                // Запускаем сервер
                 server.Start();
 
                 while (true)
                 {
                     TcpClient client = server.AcceptTcpClient();
+
                     ProcessClient(client, this);
                 }
             }
@@ -68,13 +61,18 @@ namespace AdminApp
             }
         }
 
-        private static void ProcessClient(TcpClient client, Form1 mainForm)
+        private static void ProcessClient(TcpClient client, MainForm mainForm)
         {
             NetworkStream stream = client.GetStream();
+
             byte[] bytes = new byte[256];
             int numBytesRead = stream.Read(bytes, 0, bytes.Length);
+
             string data = System.Text.Encoding.UTF8.GetString(bytes, 0, numBytesRead);
+
+            // Обработка полученного сообщения
             mainForm.HandleMessage(data);
+
             client.Close();
         }
 
@@ -88,9 +86,11 @@ namespace AdminApp
             };
 
             _problems.Add(problem);
+
             UpdateUI(problem);
         }
 
+        // Метод для обновления интерфейса администратора
         private delegate void UpdateUIDelegate(Problem problem);
 
         private void UpdateUI(Problem problem)
@@ -101,8 +101,13 @@ namespace AdminApp
             }
             else
             {
-                // Обновление интерфейса
-                // Например, добавление в DataGridView
+                dgvProblems.Rows.Add(problem.Type, problem.Status, problem.DateTime);
+                Color backColor = Color.Red;
+                if (problem.Status == "Разрешена")
+                {
+                    backColor = Color.Green;
+                }
+                dgvProblems.Rows[dgvProblems.RowCount - 1].DefaultCellStyle.BackColor = backColor;
             }
         }
 
@@ -112,5 +117,94 @@ namespace AdminApp
             public string Status { get; set; }
             public DateTime DateTime { get; set; }
         }
+
+        private async void MainForm_Load(object sender, EventArgs e)
+        {
+            await Task.Run(() => StartServer());
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            //if (dgvProblems.SelectedRows.Count > 0)
+            //{
+            //    // Получаем выбранную строку
+            //    DataGridViewRow selectedRow = dgvProblems.SelectedRows[0];  
+
+            //    // Если DataGridView связан с BindingSource
+            //    if (dgvProblems.DataSource is BindingSource bindingSource)
+            //    {
+            //        // Удаляем строку из BindingSource
+            //        bindingSource.Remove(selectedRow.DataBoundItem);
+            //    }
+            //    // Если DataGridView связан с DataTable
+            //    else if (dgvProblems.DataSource is DataTable dataTable)
+            //    {
+            //        // Удаляем строку из DataTable
+            //        dataTable.Rows.RemoveAt(selectedRow.Index);
+            //    }
+            //    // Другие типы источников данных обрабатываются аналогично
+            //    else
+            //    {
+            //        MessageBox.Show("Не поддерживаемый тип источника данных.");
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Выберите строку для удаления.");
+            //}
+
+
+            foreach(DataGridViewRow row in dgvProblems.SelectedRows)
+{
+                dgvProblems.Rows.RemoveAt(row.Index);
+            }
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        private void dgvProblems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripSeparator1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTextBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+      
+
+
     }
 }
