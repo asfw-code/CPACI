@@ -18,3 +18,14 @@ D:\Downloads\CPACI-main (1)\CPACI-main\AdminApp\AdminApp\AdminApp\obj\Debug\Admi
 D:\Downloads\CPACI-main (1)\CPACI-main\AdminApp\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.CoreCompileInputs.cache
 D:\Downloads\CPACI-main (1)\CPACI-main\AdminApp\AdminApp\AdminApp\obj\Debug\AdminApp.exe
 D:\Downloads\CPACI-main (1)\CPACI-main\AdminApp\AdminApp\AdminApp\obj\Debug\AdminApp.pdb
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.exe.config
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.exe
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\bin\Debug\AdminApp.pdb
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.MainForm.resources
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.Form2.resources
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.Properties.Resources.resources
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.GenerateResource.cache
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.exe
+C:\Users\User\Desktop\CPACI-main\AdminApp\AdminApp\obj\Debug\AdminApp.pdb
