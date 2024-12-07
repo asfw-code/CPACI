@@ -30,7 +30,7 @@ namespace AdminApp
             string password = TxbPaswd.Text;
 
             // Проверка введенных данных
-            if (username == "Admin" && password == "123456")
+            if (username == "1" && password == "1")
             {
                 // Данные верны, открываем главную форму
 

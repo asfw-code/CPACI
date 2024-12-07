@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using static AdminApp.MainForm;
 
 namespace AdminApp
 {
@@ -22,12 +23,12 @@ namespace AdminApp
         {
             InitializeComponent();
 
+            label1.Text = "Раздел проблем";
 
 
 
 
 
-            
         }
 
 
@@ -93,6 +94,8 @@ namespace AdminApp
         // Метод для обновления интерфейса администратора
         private delegate void UpdateUIDelegate(Problem problem);
 
+
+
         private void UpdateUI(Problem problem)
         {
             if (InvokeRequired)
@@ -101,13 +104,8 @@ namespace AdminApp
             }
             else
             {
-                dgvProblems.Rows.Add(problem.Type, problem.Status, problem.DateTime);
-                Color backColor = Color.Red;
-                if (problem.Status == "Разрешена")
-                {
-                    backColor = Color.Green;
-                }
-                dgvProblems.Rows[dgvProblems.RowCount - 1].DefaultCellStyle.BackColor = backColor;
+                dgvProblems.Rows.Add(new object[] { problem.Type, problem.Status, problem.DateTime });
+                dgvProblems.Rows[dgvProblems.Rows.Count - 1].DefaultCellStyle.BackColor = problem.Status == "Разрешена" ? Color.Green : Color.Red;
             }
         }
 
@@ -160,26 +158,68 @@ namespace AdminApp
             //}
 
 
-            foreach(DataGridViewRow row in dgvProblems.SelectedRows)
-{
+
+            //            if (dgvProblems.SelectedRows.Count >= 1)
+            //            {
+            //                // Получаем индекс выбранной строки
+            //                int rowIndex = dgvProblems.SelectedRows[0].Index;
+
+            //                // Создаем новую строку в dataGridView2
+            //                DataGridViewRow newRow = (DataGridViewRow)dgvProblems.Rows[rowIndex].Clone();
+
+            //                // Добавляем новую строку в dataGridView2
+            //                datagrd2.Rows.Add(newRow);
+            //            }
+            //            else
+            //            {
+
+            //            }
+
+
+           
+
+            foreach (DataGridViewRow row in dgvProblems.SelectedRows)
+            {
+                DataGridViewRow newRow = new DataGridViewRow();
+                newRow.CreateCells(datagrd2); // Создаем ячейки для новой строки в dgvSolvedProblems
+
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    newRow.Cells[i].Value = row.Cells[i].Value;
+                    if (i == 1 && newRow.Cells[i].Value.ToString() == "Неразрешенная") // Assuming Status is at index 1
+                    {
+                        newRow.Cells[i].Value = "Решается";
+                    }
+                }
+
+                datagrd2.Rows.Add(newRow);
                 dgvProblems.Rows.RemoveAt(row.Index);
             }
 
+            foreach (DataGridViewRow row in datagrd2.SelectedRows)
+            {
+                DataGridViewRow newRow = new DataGridViewRow();
+                newRow.CreateCells(datagrd3); // Создаем ячейки для новой строки в dgvSolvedProblems
 
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    newRow.Cells[i].Value = row.Cells[i].Value;
+                    if (i == 1 && newRow.Cells[i].Value.ToString() == "Решается") // Assuming Status is at index 1
+                    {
+                        newRow.Cells[i].Value = "Решено";
+                    }
+                }
 
-
-
-
-
-
-
-
-
+                datagrd3.Rows.Add(newRow);
+                datagrd2.Rows.RemoveAt(row.Index);
+                //datagrd3.Rows.Add(new object[] {Column4.DateTime.Now});
+                newRow.Cells[3].Value = DateTime.Now;
+            }
         }
+
 
         private void dgvProblems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -202,9 +242,39 @@ namespace AdminApp
 
         }
 
+        private void datagrd2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-      
+        }
 
+        private void текущиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Раздел проблем";
+            this.dgvProblems.Visible = true;
+            this.datagrd2.Visible = false;
+            this.datagrd3.Visible = false;
+           
+        }
 
+        private void решённыеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Раздел решаемых";
+            this.dgvProblems.Visible = false;
+            this.datagrd2.Visible = true;
+            this.datagrd3.Visible = false;
+        }
+
+        private void toolStripTextBox2_ButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void решённыеToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Раздел решённых";
+            this.dgvProblems.Visible = false;
+            this.datagrd2.Visible = false;
+            this.datagrd3.Visible = true;
+        }
     }
 }
